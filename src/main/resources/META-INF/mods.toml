@@ -3,28 +3,28 @@ loaderVersion="[47,)"
 license="LGPL-3.0"
 
 [[mods]]
-modId="somnia-awoken-reforged"
+modId="somnia_awoken_reforged"
 version="${file.jarVersion}"
 displayName="Somnia Awoken Reforged"
 logoFile="logo.png"
 authors="Somnia Awoken, Dreamdawn"
 description="修改了原版睡眠机制：世界加速模拟、疲劳系统、自定义起床时间与睡眠淡入淡出。"
 
-[[dependencies.somnia-awoken-reforged]]
+[[dependencies.somnia_awoken_reforged]]
     modId="forge"
     mandatory=true
     versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.somnia-awoken-reforged]]
+[[dependencies.somnia_awoken_reforged]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.20, 1.21)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.somnia-awoken-reforged]]
+[[dependencies.somnia_awoken_reforged]]
     modId="koremods"
     mandatory=true
     versionRange="[0.6,)"

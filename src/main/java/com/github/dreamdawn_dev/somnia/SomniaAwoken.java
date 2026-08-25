@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(SomniaAwoken.MODID)
 public class SomniaAwoken {
-    public static final String MODID = "somnia-awoken-reforged";
+    public static final String MODID = "somnia_awoken_reforged";
     public static final Logger LOGGER = LogManager.getLogger();
 
     public SomniaAwoken() {
