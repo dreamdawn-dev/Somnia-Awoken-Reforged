@@ -19,7 +19,7 @@ val versionBookshelf: String by project
 val versionRunelic: String by project
 
 group = "com.github.dreamdawn_dev"
-version = "0.0.0-SNAPSHOT"
+version = "1.0.2"
 
 java {
     withSourcesJar()
