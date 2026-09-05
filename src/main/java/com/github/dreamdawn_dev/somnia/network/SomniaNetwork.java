@@ -25,7 +25,7 @@ public final class SomniaNetwork {
     public static void registerMessages() {
         int id = 0;
 
-        // Client messages
+        // 客户端消息
         INSTANCE.messageBuilder(ClientWakeTimeUpdatePacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
             .encoder(ClientWakeTimeUpdatePacket::encode)
             .decoder(ClientWakeTimeUpdatePacket::decode)
@@ -52,7 +52,7 @@ public final class SomniaNetwork {
             .consumerMainThread(SpeedUpdatePacket::handle)
             .add();
 
-        // Server messages
+        // 服务端消息
         INSTANCE.messageBuilder(ActivateBlockPacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
             .encoder(ActivateBlockPacket::encode)
             .decoder(ActivateBlockPacket::decode)

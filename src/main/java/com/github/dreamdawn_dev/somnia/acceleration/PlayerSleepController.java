@@ -51,8 +51,8 @@ public final class PlayerSleepController {
         player.getCapability(CapabilityFatigue.INSTANCE)
             .ifPresent(props -> {
                 props.setSleepNormally(player.isShiftKeyDown());
-                // Fatigue above the sleep threshold: accelerated sleep (world simulation).
-                // Below it: rest mode - the player can lie down, but the world isn't accelerated.
+                // 疲劳值高于睡眠阈值：加速睡眠（世界模拟）。
+                // 低于阈值：休息模式 - 玩家可以躺下，但世界不会加速。
                 props.setAcceleratedSleep(props.getFatigue() >= SomniaConfig.COMMON.minimumFatigueToSleep.get());
             });
 
@@ -98,9 +98,9 @@ public final class PlayerSleepController {
             });
     }
 
-    // we need the earliest PlayerEntity#hurt listener
-    // because we have to set the sleep override to false before the mc stopSleeping call
-    // otherwise PlayerSleepTickHandler#tickEnd will make the player to start sleeping again
+    // 我们需要最早的PlayerEntity#hurt监听器
+    // 因为必须在MC调用stopSleeping之前将sleepOverride设置为false
+    // 否则PlayerSleepTickHandler#tickEnd会让玩家重新开始睡觉
     @SubscribeEvent
     public static void onPlayerDamage(LivingAttackEvent event) {
         LivingEntity entity = event.getEntity();
@@ -145,9 +145,9 @@ public final class PlayerSleepController {
                 }
             }
             else {
-                // Rest-mode sleep (fatigue below the threshold): no simulation, no sleep override.
-                // Keep the sleep timer below 100 so vanilla's "skip the night" never triggers,
-                // meaning the world simply keeps running at normal speed while the player lies in bed.
+                // 休息模式睡眠（疲劳值低于阈值）：无模拟，无睡眠覆写。
+                // 保持睡眠计时器低于100，这样原版的"跳过夜晚"永远不会触发，
+                // 意味着世界在玩家躺床时继续以正常速度运行。
                 fatigue.setSleepOverride(false);
                 if (SomniaConfig.COMMON.fading.get()) {
                     int sleepTimer = player.getSleepTimer() + 1;

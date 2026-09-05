@@ -22,7 +22,7 @@ public class SpeedUpdatePacket {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        // The sleep overlay no longer displays the simulation multiplier, so this packet is intentionally ignored.
+        // 睡眠叠加层不再显示模拟倍率，因此此数据包被有意忽略。
         ctx.get().setPacketHandled(true);
     }
 }

@@ -11,8 +11,8 @@ import net.minecraft.world.level.Level;
 
 public final class SomniaUtil {
     /**
-     * The fatigue level at which an accelerated sleep ends. Note that this is independent from the
-     * minimum fatigue required to start an accelerated sleep ({@code minimumFatigueToSleep}).
+     * 加速睡眠结束时的疲劳值等级。注意，这与开始加速睡眠所需的最低疲劳值
+     * （{@code minimumFatigueToSleep}）是独立的。
      */
     public static final double WAKE_UP_FATIGUE = 8.0;
 
@@ -59,9 +59,9 @@ public final class SomniaUtil {
         player.getCapability(CapabilityFatigue.INSTANCE)
             .filter(props -> props.getWakeTime() < 0)
             .ifPresent(props -> {
-                // Normal players wake up when their fatigue drops below the minimum sleep threshold.
-                // A default wake time is only assigned to players the fatigue system doesn't apply to,
-                // so they don't end up sleeping forever.
+                // 普通玩家在疲劳值降至最低睡眠阈值以下时醒来。
+                // 默认起床时间仅分配给疲劳系统不适用的玩家，
+                // 这样他们就不会永远睡下去。
                 if (!SomniaConfig.COMMON.enableFatigue.get() || player.isCreative()) {
                     long dayTime = SomniaUtil.getLevelDayTime(player.level());
                     long wakeTime = SomniaUtil.calculateWakeTime(player.level().getGameTime(), dayTime, dayTime > 12000 ? 0 : 12000);

@@ -9,9 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 
 /**
- * Replacement for the vanilla {@link net.minecraft.client.gui.screens.InBedChatScreen} while sleeping.
- * Unlike the vanilla screen it contains no chat bar or chat history - only the wake-up button,
- * so the UI is fully hidden during sleep.
+ * 睡眠时替换原版{@link net.minecraft.client.gui.screens.InBedChatScreen}的界面。
+ * 与原版界面不同，它不包含聊天栏或聊天历史——只有起床按钮，
+ * 这样睡眠时UI就完全隐藏了。
  */
 public class SomniaSleepScreen extends Screen {
     private Button wakeUpButton;
@@ -37,7 +37,7 @@ public class SomniaSleepScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == 256) { // ESC wakes the player up, like the vanilla sleep screen
+        if (keyCode == 256) { // ESC键唤醒玩家，与原版睡眠界面一致
             this.wakeUp();
             return true;
         }
@@ -46,7 +46,7 @@ public class SomniaSleepScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        // No background, no chat - only the wake-up button, so the black fade below stays visible
+        // 无背景、无聊天——只有起床按钮，这样下方的黑色淡入淡出效果保持可见
         this.wakeUpButton.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 

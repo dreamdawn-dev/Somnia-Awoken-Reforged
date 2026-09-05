@@ -55,8 +55,8 @@ public class ClientSleepHandler {
         boolean sleeping = this.mc.player.isSleeping();
 
         if (sleeping && !this.wasSleeping) {
-            // Only accelerated sleep (fatigue above the sleep threshold) gets the fade, Zzz and mute.
-            // Rest-mode sleep just keeps the player lying in bed with no visual changes.
+            // 只有加速睡眠（疲劳值高于睡眠阈值）才会有淡入淡出、Zzz动画和静音效果。
+            // 休息模式只是让玩家躺在床上，不会有任何视觉变化。
             boolean accelerated = this.mc.player.getCapability(CapabilityFatigue.INSTANCE)
                 .map(fatigue -> fatigue.getFatigue() >= SomniaConfig.COMMON.minimumFatigueToSleep.get())
                 .orElse(false);
@@ -83,10 +83,10 @@ public class ClientSleepHandler {
         }
         this.wasSleeping = sleeping;
 
-        // Suppress the vanilla sleep overlay so our custom fade is the only one rendered
+        // 抑制原版睡眠叠加层，只渲染我们自定义的淡入淡出效果
         this.mc.player.sleepCounter = 0;
 
-        // Hide all HUD while sleeping, so only the wake-up button of the sleep screen stays visible
+        // 睡眠时隐藏所有HUD，只保留睡眠界面的起床按钮
         if (sleeping && !this.hideGuiHidden) {
             this.hideGuiHidden = true;
             this.previousHideGui = this.mc.options.hideGui;
@@ -97,15 +97,15 @@ public class ClientSleepHandler {
             this.mc.options.hideGui = this.previousHideGui;
         }
 
-        // Refresh the fatigue icon stage every 5 seconds (real time), matching the server's sync interval
+        // 每5秒（现实时间）刷新一次疲劳值图标阶段，与服务器的同步间隔保持一致
         if (System.currentTimeMillis() - this.lastIconUpdate >= 5000) {
             this.lastIconUpdate = System.currentTimeMillis();
             this.mc.player.getCapability(CapabilityFatigue.INSTANCE)
                 .ifPresent(fatigue -> this.fatigueIconStage = getFatigueStage(fatigue.getFatigue()));
         }
 
-        // Volume follows the fade: gradually muted while falling asleep, restored while waking up.
-        // The screen is fully black exactly when the volume reaches zero.
+        // 音量随淡入淡出变化：入睡时逐渐静音，起床时逐渐恢复。
+        // 当音量降至零时，屏幕恰好完全变黑。
         if (this.fadeState != SleepFadeState.NONE) {
             if (!this.muted) {
                 this.muted = true;
@@ -129,8 +129,8 @@ public class ClientSleepHandler {
             renderFatigueIcon(guiGraphics, screenWidth, screenHeight);
         }
 
-        // The fade keeps rendering even while a screen (e.g. the closing sleep screen) is open,
-        // so the wake-up fade-out is never interrupted.
+        // 即使有界面打开（例如正在关闭的睡眠界面），淡入淡出也会持续渲染，
+        // 这样起床时的淡出效果就不会被打断。
         if (this.fadeState == SleepFadeState.NONE || this.mc.level == null) return;
 
         float alpha = this.getFadeAlpha();
@@ -138,15 +138,15 @@ public class ClientSleepHandler {
 
         guiGraphics.fill(0, 0, screenWidth, screenHeight, (int) (255.0F * alpha) << 24);
         if (this.fadeState == SleepFadeState.FADE_IN) {
-            // Zzz disappears as soon as the wake-up fade starts
+            // 起床淡出效果一开始，Zzz动画就立即消失
             renderZzz(guiGraphics, screenWidth, screenHeight, alpha);
         }
     }
 
     @SubscribeEvent
     public void onScreenOpen(ScreenEvent.Opening event) {
-        // Replace the vanilla sleep screen (which shows the chat bar) with one that only
-        // contains the wake-up button, keeping the UI fully hidden while sleeping.
+        // 替换原版睡眠界面（会显示聊天栏），改为只包含起床按钮的界面，
+        // 让睡眠时UI完全隐藏。
         if (event.getScreen() instanceof InBedChatScreen) {
             event.setNewScreen(new SomniaSleepScreen());
         }
@@ -173,15 +173,15 @@ public class ClientSleepHandler {
     private void renderFatigueIcon(GuiGraphics guiGraphics, int screenWidth, int screenHeight) {
         if (this.fatigueIconStage < 0 || this.fatigueIconStage >= FATIGUE_ICONS.length) return;
 
-        // Positioned relative to the screen center so GUI scaling can't break the layout.
-        // The offsets are configurable in the client config (fatigueIconXOffset / fatigueIconYOffset).
+        // 相对于屏幕中心定位，这样GUI缩放不会破坏布局。
+        // 偏移量可在客户端配置中调整（fatigueIconXOffset / fatigueIconYOffset）。
         int x = screenWidth / 2 + SomniaConfig.CLIENT.fatigueIconXOffset.get();
         int y = screenHeight - SomniaConfig.CLIENT.fatigueIconYOffset.get();
         guiGraphics.blit(FATIGUE_ICONS[this.fatigueIconStage], x, y, 0, 0, FATIGUE_ICON_SIZE, FATIGUE_ICON_SIZE, FATIGUE_ICON_SIZE, FATIGUE_ICON_SIZE);
     }
 
     private void renderZzz(GuiGraphics guiGraphics, int screenWidth, int screenHeight, float fadeAlpha) {
-        // Slow breathing animation: from semi-transparent to fully opaque and back, one full cycle every 4 seconds
+        // 缓慢呼吸动画：从半透明到完全不透明再恢复，每4秒一个完整周期
         long cycle = System.currentTimeMillis() % 4000;
         double breathe = 0.5D - 0.5D * Math.cos(2.0D * Math.PI * cycle / 4000.0D);
         float alpha = Mth.clamp(fadeAlpha * (0.3F + 0.7F * (float) breathe), 0.0F, 1.0F);

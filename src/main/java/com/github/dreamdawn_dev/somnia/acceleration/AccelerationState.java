@@ -33,8 +33,8 @@ public enum AccelerationState {
                 anySleeping |= sleeping;
                 allSleeping &= sleeping;
 
-                // Rest-mode sleepers (fatigue below the sleep threshold) are asleep, but they don't
-                // take part in the simulation vote - the world simply keeps running while they rest.
+                // 休息模式的睡眠者（疲劳值低于睡眠阈值）虽然也在睡觉，但
+                // 他们不参与模拟投票——世界在他们休息时继续正常运行。
                 if (sleeping && isParticipatingSleeper(player)) {
                     if (shouldSleepNormally(player)) normalSleep++;
                     else acceleratedSleep++;
