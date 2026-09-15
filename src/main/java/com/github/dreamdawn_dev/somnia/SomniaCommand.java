@@ -54,7 +54,8 @@ public final class SomniaCommand {
     }
 
     private static int addOverride(ServerPlayer player) {
-        if (!OVERRIDES.add(player.getUUID())) player.displayClientMessage(Component.literal("Override already exists"), true);
+        if (!OVERRIDES.add(player.getUUID()))
+            player.displayClientMessage(Component.translatable("somnia.command.override_exists"), true);
 
         return Command.SINGLE_SUCCESS;
     }
@@ -72,8 +73,12 @@ public final class SomniaCommand {
             .map(player -> player.getName().getString())
             .toList();
 
-        Component chatComponent = Component.literal(!overrides.isEmpty() ? String.join(", ", overrides) : "Nothing to see here...");
-        sender.displayClientMessage(chatComponent, false);
+        if (overrides.isEmpty()) {
+            sender.displayClientMessage(Component.translatable("somnia.command.no_overrides"), false);
+        }
+        else {
+            sender.displayClientMessage(Component.literal(String.join(", ", overrides)), false);
+        }
         return Command.SINGLE_SUCCESS;
     }
 

@@ -28,6 +28,10 @@ public interface Fatigue extends INBTSerializable<CompoundTag> {
 
     void setAcceleratedSleep(boolean acceleratedSleep);
 
+    boolean isFullyAsleep();
+
+    void setFullyAsleep(boolean fullyAsleep);
+
     void setSleepNormally(boolean sleepNormally);
 
     boolean shouldSleepNormally();

@@ -45,15 +45,19 @@ public final class SomniaEventHandler {
             double replenishedFatigue = props.getReplenishedFatigue();
 
             if (fatigueRate > 0) {
-                if (isSleeping) {
+                // 客户端完全黑屏（FadeCompletePacket）之后才开始恢复疲劳
+                if (isSleeping && props.isFullyAsleep()) {
                     double share = fatigueReplenishRate / fatigueRate;
                     double replenish = fatigueReplenishRate * share;
 
                     fatigue -= fatigueReplenishRate;
-                    extraFatigueRate -= fatigueRate / replenishedFatigue / 10;
+                    // replenishedFatigue为0（未服用过回疲劳物品）时无需衰减，避免除零
+                    if (replenishedFatigue > 0) {
+                        extraFatigueRate -= fatigueRate / replenishedFatigue / 10;
+                    }
                     replenishedFatigue -= replenish;
                 }
-                else {
+                else if (!isSleeping) {
                     double adjustedRate = fatigueRate;
 
                     MobEffectInstance wakefulness = event.player.getEffect(SomniaObjects.AWAKENING_EFFECT.get());

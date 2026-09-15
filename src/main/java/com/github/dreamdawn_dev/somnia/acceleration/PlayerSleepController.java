@@ -54,6 +54,7 @@ public final class PlayerSleepController {
                 // 疲劳值高于睡眠阈值：加速睡眠（世界模拟）。
                 // 低于阈值：休息模式 - 玩家可以躺下，但世界不会加速。
                 props.setAcceleratedSleep(props.getFatigue() >= SomniaConfig.COMMON.minimumFatigueToSleep.get());
+                props.setFullyAsleep(false);
             });
 
         SomniaUtil.updateWakeTime((ServerPlayer) player);
@@ -85,6 +86,7 @@ public final class PlayerSleepController {
             props.setSleepNormally(false);
             props.setSleepOverride(false);
             props.setAcceleratedSleep(false);
+            props.setFullyAsleep(false);
             props.setWakeTime(-1);
         });
     }
@@ -169,6 +171,8 @@ public final class PlayerSleepController {
         if (wakeByTime || wakeByFatigue) {
             player.stopSleepInBed(true, true);
             SomniaNetwork.sendToClient(new PlayerWakeUpPacket(), player);
+            // 疲劳降到起床底线或到达设定的起床时间而自动醒来
+            player.displayClientMessage(Component.translatable("somnia.status.expired"), true);
         }
         else if (fatigue.sleepOverride()) {
             fatigue.setSleepOverride(false);

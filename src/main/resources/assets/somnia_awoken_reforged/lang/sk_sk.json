@@ -1,11 +1,44 @@
 {
-  "_comment": "Slovak language file for Somnia 1.4 translated by leSamo",
-  "_comment": "If this translation gets outdated, please contact me on Twitter: @leSamoSK",
+  "_comment": "Slovak language file for Somnia Awoken Reforged. Original 1.4 translation by leSamo (@leSamoSK), completed for 1.0.2.",
 
   "somnia.status.armor": "To brnenie vyzerá nepohodlne",
-  "somnia.status.cooldown": "Ešte nie si ospalý",
-  "somnia.status.expired": "Nemôžeš spať donekonečna",
-  "somnia.status.not_now": "Niečo ťa nenechá spať",
-  "somnia.status.waiting": "Čakám na server",
-  "somnia.status.waiting_players": "Čakám na ostatných hráčov"
+  "somnia.status.expired": "Dobre si sa vyspal",
+
+  "somnia.gui.cancel": "Zrušiť",
+  "somnia.gui.reset_spawn": "Bod spawnutia: Áno",
+  "somnia.gui.no_reset_spawn": "Bod spawnutia: Nie",
+  "somnia.gui.select_wake_time": "Vyberte čas prebudení",
+  "somnia.gui.wts_title": "Spať do...?",
+
+  "somnia.gui.time_midnight": "Polnoc",
+  "somnia.gui.time_after_midnight": "Po polnoci",
+  "somnia.gui.time_before_sunrise": "Pred svitaním",
+  "somnia.gui.time_mid_sunrise": "Svitanie",
+  "somnia.gui.time_after_sunrise": "Po svitaní",
+  "somnia.gui.time_early_morning": "Skoré ráno",
+  "somnia.gui.time_mid_morning": "Ráno",
+  "somnia.gui.time_late_morning": "Neskoré ráno",
+  "somnia.gui.time_noon": "Poludnie",
+  "somnia.gui.time_early_afternoon": "Skoré popoludnie",
+  "somnia.gui.time_mid_afternoon": "Popoludnie",
+  "somnia.gui.time_late_afternoon": "Neskoré popoludnie",
+  "somnia.gui.time_before_sunset": "Pred západom slnka",
+  "somnia.gui.time_mid_sunset": "Západ slnka",
+  "somnia.gui.time_after_sunset": "Po západe slnka",
+  "somnia.gui.time_before_midnight": "Pred polnocou",
+
+  "somnia.command.override_exists": "Prekrytie simulácie už existuje",
+  "somnia.command.no_overrides": "Nič tu nie je...",
+
+  "effect.somnia_awoken_reforged.awakening": "Bdenie",
+  "item.minecraft.potion.effect.awakening": "Elixír bdenia",
+  "item.minecraft.splash_potion.effect.awakening": "Vrhateľný elixír bdenia",
+  "item.minecraft.tipped_arrow.effect.awakening": "Šíp bdenia",
+  "item.minecraft.lingering_potion.effect.awakening": "Dosahujúci elixír bdenia",
+
+  "effect.somnia_awoken_reforged.insomnia": "Nespavosť",
+  "item.minecraft.potion.effect.insomnia": "Elixír nespavosti",
+  "item.minecraft.splash_potion.effect.insomnia": "Vrhateľný elixír nespavosti",
+  "item.minecraft.tipped_arrow.effect.insomnia": "Šíp nespavosti",
+  "item.minecraft.lingering_potion.effect.insomnia": "Dosahujúci elixír nespavosti"
 }

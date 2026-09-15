@@ -6,6 +6,7 @@ import com.github.dreamdawn_dev.somnia.network.client.FatigueUpdatePacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -17,6 +18,8 @@ public final class CapabilitySync {
 
     @SubscribeEvent
     public static void onEntityCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
+        // 疲劳系统只对玩家有意义，跳过其他实体，避免为每个怪物/动物/掉落物都创建实例
+        if (!(event.getObject() instanceof Player)) return;
         event.addCapability(CapabilityFatigue.NAME, new CapabilityFatigueProvider());
     }
 

@@ -12,6 +12,7 @@ public class FatigueStore implements Fatigue {
     private boolean sleepOverride;
     private boolean acceleratedSleep;
     private boolean sleepNormally;
+    private boolean fullyAsleep;
     private long wakeTime = -1;
 
     @Override
@@ -82,6 +83,16 @@ public class FatigueStore implements Fatigue {
     @Override
     public boolean shouldSleepNormally() {
         return this.sleepNormally;
+    }
+
+    @Override
+    public boolean isFullyAsleep() {
+        return this.fullyAsleep;
+    }
+
+    @Override
+    public void setFullyAsleep(boolean fullyAsleep) {
+        this.fullyAsleep = fullyAsleep;
     }
 
     @Override

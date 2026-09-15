@@ -16,7 +16,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.List;
-import java.util.Locale;
 
 public class AccelerationHandler {
     public final ServerLevel level;
@@ -92,8 +91,8 @@ public class AccelerationHandler {
             .forEach(player -> {
                 player.stopSleepInBed(true, true);
                 SomniaNetwork.sendToClient(new PlayerWakeUpPacket(), player);
-                String key = "somnia.status." + this.state.name().toLowerCase(Locale.ROOT);
-                player.displayClientMessage(Component.translatable(key), true);
+                // 世界模拟结束（睡到有效时段边界）时被唤醒，提示玩家睡了一觉
+                player.displayClientMessage(Component.translatable("somnia.status.expired"), true);
             });
     }
 }

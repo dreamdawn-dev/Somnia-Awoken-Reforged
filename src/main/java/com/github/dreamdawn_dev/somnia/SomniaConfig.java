@@ -43,10 +43,10 @@ public final class SomniaConfig {
                 .defineInRange("fadeInTicks", 160, 0, 400);
             fadeOutTicks = builder
                 .comment("How long the screen takes to fade back in while waking up (in ticks, 20 ticks = 1 second). Should usually be shorter than fadeInTicks")
-                .defineInRange("fadeOutTicks", 160, 0, 400);
+                .defineInRange("fadeOutTicks", 120, 0, 400);
             fatigueIconXOffset = builder
                 .comment("Horizontal offset of the fatigue icon from the screen center, in pixels (positive = right, negative = left)")
-                .defineInRange("fatigueIconXOffset", 91, -1000, 1000);
+                .defineInRange("fatigueIconXOffset", 98, -1000, 1000);
             fatigueIconYOffset = builder
                 .comment("Distance of the fatigue icon from the bottom of the screen, in pixels")
                 .defineInRange("fatigueIconYOffset", 22, 0, 1000);
@@ -95,8 +95,8 @@ public final class SomniaConfig {
                 .comment("Fatigue is incremented by this number every tick")
                 .defineInRange("fatigueRate", 0.00208, 0.0, 1.0);
             fatigueReplenishRate = builder
-                .comment("Fatigue is decreased by this number every tick while you sleep")
-                .defineInRange("fatigueReplenishRate", 0.00833, 0.0, 1.0);
+                .comment("Fatigue is decreased by this number every tick while you sleep (1.5x fatigueRate by default)")
+                .defineInRange("fatigueReplenishRate", 0.00312, 0.0, 1.0);
             fatigueSideEffects = builder
                 .comment("Enables fatigue side effects")
                 .define("fatigueSideEffects", true);

@@ -1,7 +1,6 @@
 package com.github.dreamdawn_dev.somnia.util;
 
 import com.github.dreamdawn_dev.somnia.SomniaConfig;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -9,36 +8,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 
 public record SideEffectStage(int minFatigue, int maxFatigue, ResourceLocation effect, int duration, int amplifier) {
-    private static SideEffectStage[] stages;
 
+    // 每次调用都重新解析配置，这样运行时修改配置后无需重启即可生效
     public static SideEffectStage[] getSideEffectStages() {
-        if (stages == null) {
-            List<? extends List<Object>> sideEffectStages = SomniaConfig.COMMON.sideEffectStages.get();
-            stages = new SideEffectStage[sideEffectStages.size()];
-            for (int i = 0; i < stages.length; i++) {
-                stages[i] = parseStage(sideEffectStages.get(i));
-            }
-        }
-
-        return stages;
-    }
-
-    public static String getSideEffectStageDescription(double fatigue) {
-        int stage = getForFatigue(fatigue);
-        float ratio = SomniaConfig.COMMON.sideEffectStages.get().size() / 4F;
-        int desc = Math.round(stage / ratio);
-        return I18n.get("somnia.side_effect." + desc);
-    }
-
-    private static int getForFatigue(double fatigue) {
         List<? extends List<Object>> sideEffectStages = SomniaConfig.COMMON.sideEffectStages.get();
-        for (int i = 0; i < sideEffectStages.size(); i++) {
-            SideEffectStage stage = SideEffectStage.getSideEffectStages()[i];
-            if (fatigue >= stage.minFatigue && fatigue <= stage.maxFatigue && (stage.duration >= 0 || i == sideEffectStages.size() - 1)) {
-                return i + 1;
-            }
+        SideEffectStage[] stages = new SideEffectStage[sideEffectStages.size()];
+        for (int i = 0; i < stages.length; i++) {
+            stages[i] = parseStage(sideEffectStages.get(i));
         }
-        return 0;
+        return stages;
     }
 
     private static SideEffectStage parseStage(List<Object> stage) {

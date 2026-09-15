@@ -7,6 +7,7 @@ import com.github.dreamdawn_dev.somnia.network.client.OpenGUIPacket;
 import com.github.dreamdawn_dev.somnia.network.client.PlayerWakeUpPacket;
 import com.github.dreamdawn_dev.somnia.network.client.SpeedUpdatePacket;
 import com.github.dreamdawn_dev.somnia.network.server.ActivateBlockPacket;
+import com.github.dreamdawn_dev.somnia.network.server.FadeCompletePacket;
 import com.github.dreamdawn_dev.somnia.network.server.ResetSpawnPacket;
 import com.github.dreamdawn_dev.somnia.network.server.WakeTimeUpdatePacket;
 import net.minecraft.resources.ResourceKey;
@@ -19,7 +20,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class SomniaNetwork {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SomniaAwoken.MODID, "main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 
     public static void registerMessages() {
@@ -67,6 +68,11 @@ public final class SomniaNetwork {
             .encoder(WakeTimeUpdatePacket::encode)
             .decoder(WakeTimeUpdatePacket::decode)
             .consumerMainThread(WakeTimeUpdatePacket::handle)
+            .add();
+        INSTANCE.messageBuilder(FadeCompletePacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
+            .encoder((msg, buf) -> {})
+            .decoder(buf -> new FadeCompletePacket())
+            .consumerMainThread(FadeCompletePacket::handle)
             .add();
     }
 
